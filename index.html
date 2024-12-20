@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oriente ta photo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: 50px auto;
+            max-width: 600px;
+        }
+        #photo-preview {
+            margin: 20px auto;
+            max-width: 100%;
+            border: 2px dashed #ccc;
+            transform: rotate(180deg);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+        #gift {
+            display: none;
+            margin: 20px auto;
+            font-size: 50px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        #gift:hover {
+            transform: scale(1.1);
+        }
+        #final-photo {
+            display: none;
+            margin: 20px auto;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>旋转照片以发现你的礼物</h1>
+        <img id="photo-preview" src="f0bb507693830155e8c9e46b93bc550b.jpeg" alt="Aperçu de la photo">
+        <div id="orientation-warning">
+            <p>你的照片倒过来了！点击它旋转一下</p>
+        </div>
+        <div id="gift" onclick="revealSurprise()">🎁</div>
+        <img id="final-photo" src="petitdej.jpeg" alt="Cadeau final">
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="love you anyway-the marias ✿✿spedup✿✿.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const photoPreview = document.getElementById('photo-preview');
+        const orientationWarning = document.getElementById('orientation-warning');
+        const gift = document.getElementById('gift');
+        const finalPhoto = document.getElementById('final-photo');
+        const music = document.getElementById('background-music');
+
+        let clickCount = 0;
+
+        // Lancer la musique après une interaction utilisateur
+        document.body.addEventListener('click', () => {
+            music.play().catch(() => {
+                console.log('Lecture automatique bloquée, interaction nécessaire.');
+            });
+        }, { once: true });
+
+        photoPreview.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 1) {
+                photoPreview.style.transform = 'rotate(90deg)';
+                orientationWarning.textContent = "Encore un clic pour finir de tourner !";
+            } else if (clickCount === 2) {
+                photoPreview.style.transform = 'rotate(0deg)';
+                orientationWarning.classList.add('hidden');
+                gift.style.display = 'block';
+            }
+        });
+
+        function revealSurprise() {
+            gift.style.display = 'none';
+            finalPhoto.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+
+
